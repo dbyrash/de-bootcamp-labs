@@ -2,11 +2,44 @@
 
 A comprehensive collection of Python scripts demonstrating Delta Lake features and optimizations.
 
-## Prerequisites
+## Local Setup
 
+### Requirements
+
+- Python 3.8+
+- Java 8 or 11 (required for PySpark)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-pip install pyspark delta-spark
+git clone <repository-url>
+cd delta-table-day-1
 ```
+
+2. (Optional) Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### Verify Java Installation
+
+PySpark requires Java. Verify it's installed:
+```bash
+java -version
+```
+
+If not installed:
+- **macOS**: `brew install openjdk@11`
+- **Ubuntu**: `sudo apt install openjdk-11-jdk`
+- **Windows**: Download from [Adoptium](https://adoptium.net/)
+
 
 ## Scripts Overview
 
