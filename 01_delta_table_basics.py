@@ -26,7 +26,6 @@ from web_events_generator import generate_web_events
 
 def main():
     spark = get_spark()
-    spark.sparkContext.setLogLevel("WARN")
     
     base_path = get_base_path()
     
