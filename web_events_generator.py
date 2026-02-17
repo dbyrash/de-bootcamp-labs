@@ -79,17 +79,17 @@ def generate_web_events(spark, num_events=1000, days_back=7):
     Returns:
         DataFrame with web events
     """
-    urls_sql = f"array{tuple(URLS)}"
-    event_types_sql = f"array{tuple(EVENT_TYPES)}"
-    browsers_sql = f"array{tuple(BROWSERS)}"
-    os_sql = f"array{tuple(OS_LIST)}"
-    devices_sql = f"array{tuple(DEVICES)}"
-    countries_sql = f"array{tuple(COUNTRIES)}"
-    regions_sql = f"array{tuple(REGIONS)}"
+    urls_sql = "array(" + ", ".join(f"'{u}'" for u in URLS) + ")"
+    event_types_sql = "array(" + ", ".join(f"'{e}'" for e in EVENT_TYPES) + ")"
+    browsers_sql = "array(" + ", ".join(f"'{b}'" for b in BROWSERS) + ")"
+    os_sql = "array(" + ", ".join(f"'{o}'" for o in OS_LIST) + ")"
+    devices_sql = "array(" + ", ".join(f"'{d}'" for d in DEVICES) + ")"
+    countries_sql = "array(" + ", ".join(f"'{c}'" for c in COUNTRIES) + ")"
+    regions_sql = "array(" + ", ".join(f"'{r}'" for r in REGIONS) + ")"
     
     df = spark.range(num_events) \
         .withColumn("event_id", expr("uuid()")) \
-        .withColumn("event_time", expr(f"timestamp_sub(current_timestamp(), cast(rand() * {days_back} * 24 * 60 * 60 as int))")) \
+        .withColumn("event_time", expr(f"from_unixtime(unix_timestamp() - cast(rand() * {days_back} * 24 * 60 * 60 as bigint))")) \
         .withColumn("event_type", expr(f"element_at({event_types_sql}, cast(rand() * {len(EVENT_TYPES)} as int) + 1)")) \
         .withColumn("url", expr(f"element_at({urls_sql}, cast(rand() * {len(URLS)} as int) + 1)")) \
         .withColumn("url_path", col("url")) \
