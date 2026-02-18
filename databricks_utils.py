@@ -64,7 +64,7 @@ def get_base_path(subdir=""):
         Path string for storing Delta tables
     """
     if is_databricks():
-        base = "/tmp/delta_lake_demo"
+        base = "/Volumes/tabular/dataexpert/delta_demo"
     else:
         base = "./delta_tables"
         os.makedirs(base, exist_ok=True)
